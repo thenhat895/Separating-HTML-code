@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚡ CYBER EXTRACTOR - BỘ TÁCH CODE SIÊU CẤP ⚡</title>
+</head>
+<body style="background-color: #0d0e15; color: #e2e8f0; font-family: 'Consolas', 'Fira Code', monospace; padding: 30px; margin: 0; box-sizing: border-box;">
+
+    <div style="max-width: 1200px; margin: 0 auto; background: rgba(20, 21, 33, 0.85); border: 2px solid #00f0ff; padding: 30px; border-radius: 16px; box-shadow: 0 0 20px rgba(0, 240, 255, 0.25); backdrop-filter: blur(10px);">
+        
+        <!-- Tiêu đề phong cách Cyberpunk -->
+        <h1 style="text-align: center; color: #00f0ff; text-shadow: 0 0 10px rgba(0, 240, 255, 0.5); margin-top: 0; font-size: 28px; letter-spacing: 2px;">⚡ CYBER CODE EXTRACTOR v2.0 ⚡</h1>
+        <p style="text-align: center; color: #ff007f; text-shadow: 0 0 5px rgba(255, 0, 127, 0.3); font-size: 14px; margin-bottom: 30px;">[Hệ thống tự động bóc tách mã nguồn HTML - CSS - JAVASCRIPT cực hạn]</p>
+
+        <!-- Khung nhập code gốc -->
+        <div style="margin-bottom: 25px;">
+            <label style="color: #ffaa00; font-weight: bold; display: block; margin-bottom: 10px; font-size: 16px;">▶ ĐẦU VÀO: DÁN CODE GỒM CHUNG CỦA EM</label>
+            <textarea id="inputCode" placeholder="Dán đoạn code chứa thẻ <style> hoặc <script> của em vào đây..." style="width: 100%; height: 200px; background-color: #07080d; color: #00ff66; border: 1px solid #334155; border-radius: 8px; padding: 15px; font-size: 14px; outline: none; box-sizing: border-box; transition: 0.3s; box-shadow: inset 0 2px 8px rgba(0,0,0,0.8);" onfocus="this.style.borderColor='#00f0ff'"></textarea>
+        </div>
+
+        <!-- Nút bấm Hacker siêu ngầu -->
+        <div style="text-align: center; margin: 30px 0;">
+            <button onclick="extractCyberCode()" style="background: linear-gradient(135deg, #ff007f, #7928ca); color: #ffffff; font-weight: bold; font-size: 16px; padding: 14px 45px; border: none; border-radius: 30px; cursor: pointer; box-shadow: 0 0 15px rgba(255, 0, 127, 0.4); letter-spacing: 1px; transition: 0.3s;" onmouseover="this.style.transform='scale(1.05)', this.style.boxShadow='0 0 25px rgba(255, 0, 127, 0.7)'" onmouseout="this.style.transform='scale(1)'">☠️ KÍCH HOẠT TÁCH MÃ NGUỒN</button>
+        </div>
+
+        <!-- Khung kết quả chia làm 3 cột -->
+        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+            
+            <!-- Cột HTML -->
+            <div style="flex: 1; min-width: 300px; background: #13141f; padding: 15px; border-radius: 10px; border-left: 4px solid #00f0ff;">
+                <h3 style="color: #00f0ff; margin-top: 0; font-size: 15px; display: flex; justify-content: space-between;">📄 1. index.html <span style="font-size:11px; color:#555;">[Giao diện sạch]</span></h3>
+                <textarea id="outputHtml" readonly style="width: 100%; height: 250px; background-color: #07080d; color: #00f0ff; border: 1px solid #1e293b; border-radius: 6px; padding: 10px; font-size: 12px; outline: none; box-sizing: border-box; resize: none;"></textarea>
+            </div>
+            
+            <!-- Cột CSS -->
+            <div style="flex: 1; min-width: 300px; background: #13141f; padding: 15px; border-radius: 10px; border-left: 4px solid #ffaa00;">
+                <h3 style="color: #ffaa00; margin-top: 0; font-size: 15px; display: flex; justify-content: space-between;">🎨 2. style.css <span style="font-size:11px; color:#555;">[Trang trí]</span></h3>
+                <textarea id="outputCss" readonly style="width: 100%; height: 250px; background-color: #07080d; color: #ffaa00; border: 1px solid #1e293b; border-radius: 6px; padding: 10px; font-size: 12px; outline: none; box-sizing: border-box; resize: none;"></textarea>
+            </div>
+            
+            <!-- Cột JS -->
+            <div style="flex: 1; min-width: 300px; background: #13141f; padding: 15px; border-radius: 10px; border-left: 4px solid #ff007f;">
+                <h3 style="color: #ff007f; margin-top: 0; font-size: 15px; display: flex; justify-content: space-between;">⚙️ 3. script.js <span style="font-size:11px; color:#555;">[Xử lý ẩn]</span></h3>
+                <textarea id="outputJs" readonly style="width: 100%; height: 250px; background-color: #07080d; color: #ff007f; border: 1px solid #1e293b; border-radius: 6px; padding: 10px; font-size: 12px; outline: none; box-sizing: border-box; resize: none;"></textarea>
+            </div>
+
+        </div>
+        
+        <p style="font-size: 12px; color: #64748b; text-align: center; margin-top: 25px; margin-bottom: 0;">⚡ Mẹo: App tự động thêm mã kết nối file CSS và JS vào file HTML cho em luôn rồi nhé!</p>
+    </div>
+
+    <script>
+        function extractCyberCode() {
+            let fullCode = document.getElementById('inputCode').value;
+            
+            // 1. Tách Code CSS (nằm giữa thẻ <style>)
+            let styleRegex = /<style\b[^>]*>([\s\S]*?)<\/style>/gi;
+            let cssContent = "";
+            let matchStyle;
+            while ((matchStyle = styleRegex.exec(fullCode)) !== null) {
+                cssContent += matchStyle[1].trim() + "\n\n";
+            }
+            
+            // 2. Tách Code JavaScript (nằm giữa thẻ <script>)
+            let scriptRegex = /<script\b[^>]*>([\s\S]*?)<\/script>/gi;
+            let jsContent = "";
+            let matchScript;
+            while ((matchScript = scriptRegex.exec(fullCode)) !== null) {
+                jsContent += matchScript[1].trim() + "\n\n";
+            }
+            
+            // 3. Tạo file HTML sạch (Xóa hết thẻ style và script gốc)
+            let htmlContent = fullCode
+                .replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, "")
+                .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, "")
+                .trim();
+                
+            // Tự động chèn link kết nối bảo mật vào HTML giống các ông lớn
+            let headInsert = "";
+            if (cssContent.trim() !== "") {
+                headInsert += '    <link rel="stylesheet" href="style.css">\n';
+            } else {
+                cssContent = "/* Không phát hiện mã CSS nào để tách! */";
+            }
+            
+            let bodyInsert = "";
+            if (jsContent.trim() !== "") {
+                bodyInsert += '<script src="script.js"><\/script>\n';
+            } else {
+                jsContent = "// Không phát hiện mã JavaScript nào để tách!";
+            }
+
+            // Chèn link kết nối vào đúng vị trí cấu trúc HTML
+            if (htmlContent.includes("</head>")) {
+                htmlContent = htmlContent.replace("</head>", headInsert + "</head>");
+            } else {
+                htmlContent = headInsert + htmlContent;
+            }
+            
+            if (htmlContent.includes("</body>")) {
+                htmlContent = htmlContent.replace("</body>", bodyInsert + "</body>");
+            } else {
+                htmlContent = htmlContent + "\n\n" + bodyInsert;
+            }
+            
+            // Xuất dữ liệu ra 3 ô cho lập trình viên copy
+            document.getElementById('outputHtml').value = htmlContent.trim();
+            document.getElementById('outputCss').value = cssContent.trim();
+            document.getElementById('outputJs').value = jsContent.trim();
+        }
+    </script>
+</body>
+          </html>
+          
